@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import CountrySelector from '../components/CountrySelector'
+import CountryDetail from '../components/CountryDetail'
 
 class CountryContainer extends Component {
 
@@ -7,20 +8,25 @@ class CountryContainer extends Component {
         super(props); 
 
         this.state ={
-            data: null, 
+            countries: []
         }; 
 
     }
+   
     componentDidMount() {
         fetch("https://restcountries.eu/rest/v2/all")
         .then(response => response.json())
-        .then(data => this.setState({ data })); 
-    }
+        .then(data => {this.setState({ countries: data })
+        })
+    };
+
+
     render(){
         return (
             <div className="country-container">
                 <h1>Countries</h1>
-                <CountrySelector data={this.state.data} /> 
+                <CountrySelector data={this.state.countries} /> 
+                
             </div>
         )
     }
